@@ -22,7 +22,7 @@ node('docker') {
         }
 
         /* We only care about the taglib, so override index page and site descriptor */
-        sh 'cp -afv site/ jenkins/core/src/site'
+        sh 'cp -afv site/ jenkins/core/src'
     }
 
     stage('Generate') {
