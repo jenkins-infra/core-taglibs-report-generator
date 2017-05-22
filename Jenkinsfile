@@ -43,4 +43,13 @@ node('docker') {
             archiveArtifacts artifacts: 'index.html, jelly-taglib-ref.html, *.xsd, */**', fingerprint: true
         }
     }
+
+    if (infra.isTrusted()) {
+        stage ('Publish') {
+            dir('jenkins/core/target') {
+                def files = fileFiles('site/**')
+                infra.publishReports(files)
+            }
+        }
+    }
 }
