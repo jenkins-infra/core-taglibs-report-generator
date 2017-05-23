@@ -48,8 +48,12 @@ node('docker') {
         stage ('Publish') {
             dir('jenkins/core/target') {
                 sh 'mv -v site core-taglib'
-                def files = findFiles('core-taglib/**')
-                infra.publishReports(files)
+                def files = findFiles glob: 'core-taglib/**'
+                def filePaths = []
+                for (int i = 0; i < files.length; i++) {
+                    filePaths.add(files[i].path)
+                }
+                infra.publishReports(filePaths)
             }
         }
     }
