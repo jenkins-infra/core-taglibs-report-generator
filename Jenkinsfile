@@ -47,7 +47,8 @@ node('docker') {
     if (infra.isTrusted()) {
         stage ('Publish') {
             dir('jenkins/core/target') {
-                def files = fileFiles('site/**')
+                sh 'mv -v site core-taglib'
+                def files = findFiles('core-taglib/**')
                 infra.publishReports(files)
             }
         }
