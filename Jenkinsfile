@@ -18,7 +18,7 @@ node('docker') {
         /* Checkout the latest LTS release so we don't need to build Jenkins to create the site */
         sh 'git clone https://github.com/jenkinsci/jenkins/ jenkins'
         dir ('jenkins') {
-            sh 'git checkout stable-2.107'
+            sh 'git checkout jenkins-2.107'
         }
 
         /* We only care about the taglib, so override index page and site descriptor */
