@@ -1,0 +1,41 @@
+From 613f97abe0632fe60087d6d8de9c7942b10cfc9b Mon Sep 17 00:00:00 2001
+From: Baptiste Mathus <batmat@batmat.net>
+Date: Thu, 26 Apr 2018 15:52:14 +0200
+Subject: [PATCH] Manual reapply of
+ https://github.com/jenkinsci/jenkins/pull/3408 on 2.107
+
+---
+ pom.xml | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/pom.xml b/pom.xml
+index 3a297bea89..51a38fd3f0 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -104,6 +104,9 @@ THE SOFTWARE.
+ 
+     <maven-war-plugin.version>3.0.0</maven-war-plugin.version> <!-- JENKINS-47127 bump when 3.2.0 is out. Cf. MWAR-407 -->
+ 
++    <!-- TODO: bump in parent pom and remove -->
++    <maven-site-plugin.version>3.7</maven-site-plugin.version>
++
+     <!-- Minimum Remoting version, which is tested for API compatibility -->
+     <remoting.version>3.17</remoting.version>
+     <remoting.minimum.supported.version>2.60</remoting.minimum.supported.version>
+@@ -536,13 +539,6 @@ THE SOFTWARE.
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-site-plugin</artifactId>
+-          <dependencies>
+-            <dependency>
+-              <groupId>org.kohsuke</groupId>
+-              <artifactId>doxia-module-markdown</artifactId>
+-              <version>1.0</version>
+-            </dependency>
+-          </dependencies>
+         </plugin>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+-- 
+2.14.3
+

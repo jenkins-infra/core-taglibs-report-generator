@@ -18,7 +18,8 @@ node('docker') {
         /* Checkout the latest LTS release so we don't need to build Jenkins to create the site */
         sh 'git clone https://github.com/jenkinsci/jenkins/ jenkins'
         dir ('jenkins') {
-            sh 'git checkout jenkins-2.46'
+            sh 'git checkout jenkins-2.107'
+            sh 'git apply ../JENKINS-50969.patch'
         }
 
         /* We only care about the taglib, so override index page and site descriptor */
@@ -33,9 +34,11 @@ node('docker') {
         ]) {
             dir ('jenkins/core') {
                 /* Generate the minimal Maven site */
-                sh 'mvn --show-version --batch-mode -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
+                // FIXME: remove patching and forced site version when https://github.com/jenkinsci/jenkins/pull/3408 lands into next LTS
+                sh 'mvn --show-version --batch-mode  -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean org.apache.maven.plugins:maven-site-plugin:3.7:site'
             }
-}    }
+        }
+    }
 
     stage('Archive') {
         dir('jenkins/core/target/site') {
