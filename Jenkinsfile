@@ -33,7 +33,7 @@ node('docker') {
         ]) {
             dir ('jenkins/core') {
                 /* Generate the minimal Maven site */
-                sh 'mvn -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
+                sh 'mvn --show-version --batch-mode -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
             }
 }    }
 
