@@ -4,7 +4,7 @@ properties([
     /* Only keep the most recent builds. */
     buildDiscarder(logRotator(numToKeepStr: '20')),
     /* build regularly */
-    pipelineTriggers([cron('H H(18-13) * * 1')])
+    pipelineTriggers([cron('H H(18-23) * * 1')])
 ])
 
 
