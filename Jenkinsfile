@@ -4,7 +4,7 @@ properties([
     /* Only keep the most recent builds. */
     buildDiscarder(logRotator(numToKeepStr: '20')),
     /* build regularly */
-    pipelineTriggers([cron('H H * * 0')])
+    pipelineTriggers([cron('H H(18-23) * * 1')])
 ])
 
 
@@ -18,8 +18,7 @@ node('docker') {
         /* Checkout the latest LTS release so we don't need to build Jenkins to create the site */
         sh 'git clone https://github.com/jenkinsci/jenkins/ jenkins'
         dir ('jenkins') {
-            sh 'git checkout jenkins-2.107'
-            sh 'git apply ../JENKINS-50969.patch'
+            sh 'git checkout jenkins-2.121'
         }
 
         /* We only care about the taglib, so override index page and site descriptor */
@@ -34,8 +33,7 @@ node('docker') {
         ]) {
             dir ('jenkins/core') {
                 /* Generate the minimal Maven site */
-                // FIXME: remove patching and forced site version when https://github.com/jenkinsci/jenkins/pull/3408 lands into next LTS
-                sh 'mvn --show-version --batch-mode  -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean org.apache.maven.plugins:maven-site-plugin:3.7:site'
+                sh 'mvn --show-version --batch-mode  -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
             }
         }
     }
