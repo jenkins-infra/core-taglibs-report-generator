@@ -8,7 +8,7 @@ properties([
 ])
 
 
-node('docker') {
+node('docker&&linux') {
 
     stage('Checkout') {
         /* Make sure we're always starting with a fresh workspace */
