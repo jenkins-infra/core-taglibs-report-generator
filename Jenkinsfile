@@ -15,10 +15,15 @@ node('docker') {
         deleteDir()
         checkout scm
 
+        def version = sh returnStdout: true, script: './determine-latest-lts-baseline.sh'
+        version = version.trim()
+
         /* Checkout the latest LTS release so we don't need to build Jenkins to create the site */
         sh 'git clone https://github.com/jenkinsci/jenkins/ jenkins'
-        dir ('jenkins') {
-            sh 'git checkout jenkins-2.121'
+        withEnv([ "version=$version" ]) {
+            dir ('jenkins') {
+                sh 'git checkout "jenkins-$version"'
+            }
         }
 
         /* We only care about the taglib, so override index page and site descriptor */
