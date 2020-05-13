@@ -1,0 +1,6 @@
+# Downloaded by shell script
+jq
+
+# IntelliJ
+/.idea/
+/*.iml
