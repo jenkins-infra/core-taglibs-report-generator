@@ -33,12 +33,12 @@ node('docker&&linux') {
     stage('Generate') {
         withEnv([
                 "PATH+MVN=${tool 'mvn'}/bin",
-                "JAVA_HOME=${tool 'jdk8'}",
-                "PATH+JAVA=${tool 'jdk8'}/bin"
+                "JAVA_HOME=${tool 'jdk11'}",
+                "PATH+JAVA=${tool 'jdk11'}/bin"
         ]) {
             dir ('jenkins/core') {
                 /* Generate the minimal Maven site */
-                sh 'mvn --show-version --batch-mode  -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
+                sh 'mvn --show-version --batch-mode -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
             }
         }
     }
@@ -46,7 +46,10 @@ node('docker&&linux') {
     stage('Archive') {
         dir('jenkins/core/target/site') {
             /* Don't archive additional report files in the top level directory */
-            archiveArtifacts artifacts: 'index.html, jelly-taglib-ref.html, *.xsd, */**', fingerprint: true
+            archiveArtifacts artifacts: 'index.html, jelly-taglib-ref.html, *.xsd, */**',
+            allowEmptyArchive: false,
+            fingerprint: true,
+            onlyIfSuccessful: true
         }
     }
 
