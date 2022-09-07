@@ -16,4 +16,4 @@ test_which curl
 test_which head
 test_which jq
 
-curl --silent --fail 'https://repo.jenkins-ci.org/api/search/versions?g=org.jenkins-ci.main&a=jenkins-core&repos=releases&v=?.*.1' | jq --raw-output '.results[].version' | head -n 1 | cut -d. -f1-2
+curl --silent --fail 'https://repo.jenkins-ci.org/api/search/versions?g=org.jenkins-ci.main&a=jenkins-core&repos=releases&v=?.*.*' | jq --raw-output '.results[].version' | head -n 1

@@ -15,7 +15,7 @@ node('docker&&linux') {
         deleteDir()
         checkout scm
 
-        def version = sh returnStdout: true, script: './determine-latest-lts-baseline.sh'
+        def version = sh returnStdout: true, script: './determine-latest-lts.sh'
         version = version.trim()
 
         /* Checkout the latest LTS release so we don't need to build Jenkins to create the site */
