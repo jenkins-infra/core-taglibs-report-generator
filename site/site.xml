@@ -1,7 +1,11 @@
 <project name="Jenkins">
+  <body>
+    <breadcrumbs>
+      <item name="Homepage" href="https://jenkins.io/" target="_blank"/>
+    </breadcrumbs>
+  </body>
   <bannerLeft>
     <name>Jenkins Taglib Documentation</name>
-    <href>https://jenkins.io/</href>
   </bannerLeft>
   <skin>
     <groupId>org.apache.maven.skins</groupId>
