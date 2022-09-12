@@ -1,8 +1,7 @@
 <project name="Jenkins">
   <bannerLeft>
-    <name>Jenkins</name>
+    <name>Jenkins Taglib Documentation</name>
     <href>https://jenkins.io/</href>
-    <src>https://github.com/jenkins-infra/jenkins.io/raw/master/content/sites/default/files/images/headshot.png</src>
   </bannerLeft>
   <skin>
     <groupId>org.apache.maven.skins</groupId>
