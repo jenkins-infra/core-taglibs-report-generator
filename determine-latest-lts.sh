@@ -1,19 +1,16 @@
 #!/bin/bash
+
 set -o errexit
 set -o nounset
 set -o pipefail
 
-wget -q -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 || { echo "Failed to download jq" >&2 ; exit 1; }
-chmod +x jq || { echo "Failed to make jq executable" >&2 ; exit 1; }
-
-export PATH=.:$PATH
-
-function test_which() {
-  command -v "$1" >/dev/null || { echo "Not on PATH: $1" >&2 ; exit 1 ; }
+function die() {
+	echo "$(basename "$0"): $*" >&2
+	exit 1
 }
 
-test_which curl
-test_which head
-test_which jq
+wget -q -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 || die 'failed to download jq'
+chmod +x jq || die 'failed to make jq executable'
+curl --silent --fail 'https://repo.jenkins-ci.org/api/search/versions?g=org.jenkins-ci.main&a=jenkins-core&repos=releases&v=?.*.*' | ./jq --raw-output '.results[].version' | head -n 1
 
-curl --silent --fail 'https://repo.jenkins-ci.org/api/search/versions?g=org.jenkins-ci.main&a=jenkins-core&repos=releases&v=?.*.*' | jq --raw-output '.results[].version' | head -n 1
+exit 0
