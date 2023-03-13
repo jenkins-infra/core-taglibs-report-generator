@@ -5,7 +5,6 @@
     ":semanticCommitsDisabled",
     "schedule:earlyMondays"
   ],
-  "automerge": true,
   "reviewers": [
     "team:core"
   ],
