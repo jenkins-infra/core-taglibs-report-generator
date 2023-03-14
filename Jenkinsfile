@@ -57,12 +57,18 @@ node('docker&&linux') {
         stage ('Publish') {
             dir('jenkins/core/target') {
                 sh 'mv -v site core-taglib'
-                def files = findFiles glob: 'core-taglib/**'
-                def filePaths = []
-                for (int i = 0; i < files.length; i++) {
-                    filePaths.add(files[i].path)
+                // This script returns all filepaths separated by the null character (as they can contain white spaces)
+                String[] files = sh(returnStdout: true, script: 'find core-taglib -type f -print0').split('\u0000')
+                // As the command above returns an array with one empty element if there is no match, check if it's not the case
+                if (files[0] != '') {
+                    def filePaths = []
+                    for (int i = 0; i < files.length; i++) {
+                        filePaths.add(files[i].path)
+                    }
+                    infra.publishReports(filePaths)
+                } else {
+                    echo 'WARNING: no file found in core-taglib.'
                 }
-                infra.publishReports(filePaths)
             }
         }
     }
