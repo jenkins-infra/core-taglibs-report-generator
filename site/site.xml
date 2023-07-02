@@ -13,6 +13,15 @@
     <version>1.11.2</version>
   </skin>
   <custom>
+    <matomo>
+      <siteId>3</siteId>
+      <url>https://jenkins-matomo.do.g4v.dev</url>
+      <options>
+        <disableCookies/>
+        <trackPageView/>
+        <enableLinkTracking/>
+      </options>
+    </matomo>
     <fluidoSkin>
       <sideBarEnabled>false</sideBarEnabled>
     </fluidoSkin>
