@@ -58,7 +58,7 @@ node('docker&&linux') {
                 String[] files = sh(returnStdout: true, script: 'find core-taglib -type f -print0').split('\u0000')
                 // As the command above returns an array with one empty element if there is no match, check if it's not the case
                 if (files[0] != '') {
-                    infra.publishReports(files.toList())
+                    infra.publishReports(files.toList(), [useWorkloadIdentity: true])
                 } else {
                     echo 'WARNING: no file found in core-taglib.'
                 }
