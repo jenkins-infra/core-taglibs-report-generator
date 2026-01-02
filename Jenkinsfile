@@ -30,8 +30,8 @@ node('docker&&linux') {
     stage('Generate') {
         withEnv([
                 "PATH+MVN=${tool 'mvn'}/bin",
-                "JAVA_HOME=${tool 'jdk17'}",
-                "PATH+JAVA=${tool 'jdk17'}/bin"
+                "JAVA_HOME=${tool 'jdk25'}",
+                "PATH+JAVA=${tool 'jdk25'}/bin"
         ]) {
             dir ('jenkins/core') {
                 /* Generate the minimal Maven site */
