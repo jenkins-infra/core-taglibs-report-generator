@@ -8,7 +8,7 @@ properties([
 ])
 
 
-node('docker&&linux') {
+node('maven-25') {
 
     stage('Checkout') {
         /* Make sure we're always starting with a fresh workspace */
@@ -28,15 +28,9 @@ node('docker&&linux') {
     }
 
     stage('Generate') {
-        withEnv([
-                "PATH+MVN=${tool 'mvn'}/bin",
-                "JAVA_HOME=${tool 'jdk25'}",
-                "PATH+JAVA=${tool 'jdk25'}/bin"
-        ]) {
-            dir ('jenkins/core') {
-                /* Generate the minimal Maven site */
-                sh 'mvn --show-version --batch-mode -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
-            }
+        dir ('jenkins/core') {
+            /* Generate the minimal Maven site */
+            sh 'mvn --show-version --batch-mode -DgenerateProjectInfo=false -DgenerateSitemap=false -e clean site:site'
         }
     }
 
