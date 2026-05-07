@@ -11,7 +11,8 @@ function die() {
 	exit 1
 }
 
-curl --silent --fail --output jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 || die 'failed to download jq'
+curl --silent --fail https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 --output jq || die 'failed to download jq'
+ls -al
 chmod +x jq || die 'failed to make jq executable'
 results="$(curl --silent --fail 'https://repo.jenkins-ci.org/api/search/versions?g=org.jenkins-ci.main&a=jenkins-core&repos=releases&v=?.*.*')"
 versions="$(echo "${results}" | ./jq --raw-output '.results[].version')"
