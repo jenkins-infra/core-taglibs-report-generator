@@ -29,7 +29,6 @@ node('docker&&linux') {
 
     stage('Generate') {
         withEnv([
-                "PATH+MVN=${tool 'mvn'}/bin",
                 "JAVA_HOME=${tool 'jdk25'}",
                 "PATH+JAVA=${tool 'jdk25'}/bin"
         ]) {
