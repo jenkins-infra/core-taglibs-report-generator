@@ -63,5 +63,8 @@ node('docker&&linux') {
                 }
             }
         }
+        stage ('Publish build report') {
+            publishBuildStatusReport()
+        }
     }
 }
